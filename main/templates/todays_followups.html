@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+
+{% block title %}
+All leads
+{% endblock title %}
+
+{% block content %}
+
+
+<div class='container my-3'>
+  <div class="card">
+    <div class="card-header">
+      <h3>Today's follow-ups</h3>
+    </div>
+    <div class="card-body">
+      <table class="table table-bordered table-hover">
+        <thead>
+          <tr>
+            <th scope="col">ID</th>
+            <th scope="col">Clients name</th>
+            <th scope="col">Contact</th>
+            <th scope="col">Requirement</th>
+            <th scope="col">Required loaction</th>
+            <th scope="col">Source</th>
+            <th scope="col">Date</th>
+            <th scope="col">Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for lead in leads %}
+          <tr class="table-light">
+            <th scope="row">{{ lead.id }}</th>
+            <td class="text-truncate" style="max-width: 130px;">{{ lead.client }}</td>
+            <td class="text-truncate" style="max-width: 120px;">{{ lead.client.client_contact }}</td>
+            <td class="text-truncate" style="max-width: 120px;">{{ lead.property_Types }}</td>
+            <td class="text-truncate" style="max-width: 100px;">{{ lead.location }}</td>
+            <td  class="text-truncate" style="max-width: 150px;">{{ lead.Source }}</td>
+            <td  class="text-truncate" style="max-width: 120px;">{{ lead.date|date:"Y-m-d"  }}</td>
+            <td  class="text-truncate" style="max-width: 170px;"><a class='btn btn-primary btn-sm' href="">Attempt</a> | <a class='btn btn-success btn-sm ' href="{% url "edit_leads" lead.id %}">Update</a> |  <a class='btn btn-danger btn-sm' onclick="return confirm('Are you sure u want to delete this lead ?')" href="{% url "delete_leads" lead.id %}">Delete</a> </td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+{% endblock content %}https://open.spotify.com/track/1B62o4CbdL9ckGvwsz2cgn

@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <title> {% block title %}Base template{% endblock title %}</title>
+
+    <style>
+      body {background-color: rgb(240, 239, 239);}
+    </style>
+
+</head>
+<body>
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container-fluid">
+        {% if user.is_authenticated %}
+        <a class="navbar-brand" href="/">Estate</a>
+        {% else %}
+        <a class="navbar-brand">Estate</a>
+        {% endif %}
+
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            {% if user.is_authenticated %}
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <li class="nav-item">
+                    <a class="nav-link active mx-1" aria-current="page" href="/"><i class="fa-solid fa-gauge"></i> Dashboard</a>
+                </li>
+
+                <li class="nav-item dropdown">
+                  <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    <i class="fa-solid fa-users"></i> Clients</a>
+                  <ul class="dropdown-menu">
+                    <li class="nav-item">
+                      <a class="dropdown-item" aria-current="page" href="{% url "add_client" %}"><i class="fa-solid fa-circle-plus"></i> Add client </a>
+                    </li>
+
+                    <li class="nav-item">
+                      <a class="dropdown-item" aria-current="page" href="{% url "list_clients" %}">List clients</a>
+                    </li>
+                  </ul>
+                </li>
+
+                <li class="nav-item dropdown">
+                  <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    <i class="fa-solid fa-user-secret"></i> Agent</a>
+                  <ul class="dropdown-menu">
+                    <li class="nav-item">
+                      <a class="dropdown-item" aria-current="page" href="{% url "add_agent" %}"><i class="fa-solid fa-circle-plus"></i> Add agent</a>
+                    </li>
+
+                    <li class="nav-item">
+                      <a class="dropdown-item" aria-current="page" href="{% url "list_agents" %}">List agent</a>
+                    </li>
+                  </ul>
+                </li>
+
+                <li class="nav-item dropdown">
+                  <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    <i class="fa-solid fa-landmark"></i> Property</a>
+                  <ul class="dropdown-menu">
+                    <li class="nav-item">
+                      <a class="dropdown-item" aria-current="page" href="{% url "add_property" %}"><i class="fa-solid fa-circle-plus"></i> Add property </a>
+                    </li>
+
+                    <li><hr class="dropdown-divider"></li>
+
+                    <li class="nav-item">
+                      <a class="dropdown-item" aria-current="page" href="{% url "list_properties" %}">All properties</a>
+                    </li>
+
+                    <li class="nav-item">
+                      <a class="dropdown-item" aria-current="page" href="{% url "property_available" %}">Property available</a>
+                    </li>
+
+                    <li class="nav-item">
+                      <a class="dropdown-item" aria-current="page" href="{% url "property_unavailable" %}">Property unavailable</a>
+                    </li>
+                  </ul>
+                </li>
+
+                
+                <li class="nav-item dropdown">
+                  <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    <i class="fa-solid fa-diagram-project"></i> Projects</a>
+                  <ul class="dropdown-menu">
+                    <li class="nav-item">
+                      <a class="dropdown-item" aria-current="page" href="{% url "add_project" %}"><i class="fa-solid fa-circle-plus"></i> Add projects</a>
+                    </li>
+                    <li><hr class="dropdown-divider"></li>
+                    <li class="nav-item">
+                      <a class="dropdown-item" aria-current="page" href="{% url "list_projects" %}">List projects</a>
+                    </li>
+                  </ul>
+                </li>
+
+                <li class="nav-item dropdown">
+                  <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    <i class="fa-solid fa-square-phone"></i> Leads</a>
+                  <ul class="dropdown-menu">
+                    <li class="nav-item">
+                      <a class="dropdown-item" aria-current="page" href="{% url "add_leads" %}"><i class="fa-solid fa-circle-plus"></i> Add leads </a> 
+                    </li>
+                    <li><hr class="dropdown-divider"></li>
+                    <li class="nav-item">
+                      <a class="dropdown-item" aria-current="page" href="{% url "fresh_leads" %}">Fresh leads</a>
+                    </li>
+
+                    <li class="nav-item">
+                      <a class="dropdown-item" aria-current="page" href="{% url "old_leads" %}">Old leads</a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="dropdown-item" aria-current="page" href="{% url "all_leads" %}">All leads</a>
+                    </li>
+                    <li><hr class="dropdown-divider"></li>
+                    <li class="nav-item">
+                      <a class="dropdown-item" aria-current="page" href="{% url "todays_followups" %}">Today's-followups</a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="dropdown-item" aria-current="page" href="{% url "upcoming_followups" %}">Upcoming-followups</a>
+                    </li>
+                  </ul>
+                </li>
+
+                <li class="nav-item dropdown">
+                  <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    <i class="fa-solid fa-gear"></i> <b>Master</b></a>
+                  <ul class="dropdown-menu">
+                    <li class="nav-item">
+                      <a class="dropdown-item" aria-current="page" href="{% url "amenities" %}"><b>Master</b> :: Add Amenities</a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="dropdown-item" aria-current="page" href="{% url "property_types" %}"><b>Master</b> :: Add Property Types</a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="dropdown-item" aria-current="page" href="{% url "add_Source" %}"><b>Master</b> :: Add Source</a>
+                    </li>
+                  </ul>
+                </li>
+            </ul>
+
+
+            <ul class="navbar-nav mb-2 mb-lg-0 ms-auto">
+                <li class="nav-item">
+                    <a class="nav-link" aria-current="page" onclick="return confirm('Are you sure you want to logout?')" href="{% url "logout" %}" id='logout'>logout</a>
+                </li>
+            </ul>
+            {% endif %}
+
+            {% if not user.is_authenticated %}
+            <ul class="navbar-nav mb-2 mb-lg-0">
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url "login" %}">Login</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link btn btn-secondary" href="{% url "registration" %}">Register</a>
+                </li>
+            </ul>
+            {% endif %}
+        </div>
+    </div>
+</nav>
+
+
+    {% for message in messages %}
+      <div class="alert alert-warning alert-dismissible fade show my-2 mx-3" role="alert">
+        {{ message }}
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+      </div>
+    {% endfor %}
+
+
+      <div>
+        {% block content %}
+        
+        {% endblock content %}
+      </div>
+
+
+      {% comment %} <script>
+        // JavaScript code to display confirmation popup before logout
+        document.getElementById('logout').addEventListener('click', function(event) {
+            event.preventDefault(); // Prevent the default action of the link
+            if (confirm('Are you sure you want to logout?')) {
+                window.location.href = "{% url 'logout' %}"; // Redirect to logout URL if user confirms
+            }
+        });
+    </script> {% endcomment %}
+      <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+
+
+      <script src="https://kit.fontawesome.com/bf257a15fb.js" crossorigin="anonymous"></script>
+</body>
+</html>

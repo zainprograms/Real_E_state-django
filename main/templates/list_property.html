@@ -1,0 +1,64 @@
+{% extends "base.html" %}
+
+{% block title %}list properties{% endblock title %}
+
+{% block content %}
+
+  <div class='container my-3'>
+    <div class="card">
+      <div class="card-header">
+        <h3>Properties</h3>
+      </div>
+      <div class="card-body">
+        <table class="table table-bordered table-hover">
+          <thead>
+            <tr>
+              <th scope="col">ID</th>
+              <th scope="col">Title</th>
+              <th scope="col">location</th>
+              <th scope="col">Category</th>
+              <th scope="col">Price</th>
+              <th scope="col">Size</th>
+              <th scope="col">Status</th>
+              <th scope="col">Loan availability</th>
+              <th scope="col">Agent</th>
+              <th scope="col">Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for property in properties %}
+              <tr class="table-light">
+                <th scope="row">{{ property.id }}</th>
+                <td class="text-truncate" style="max-width: 130px;">{{ property.property_title }}</td>
+                <td class="text-truncate" style="max-width: 130px;">{{ property.location }}</td>
+                <td class="text-truncate" style="max-width: 120px;">{{ property.property_types }}</td>
+                <td class="text-truncate" style="max-width: 150px;">{{ property.property_cost }}</td>
+                <td class="text-truncate" style="max-width: 150px;">{{ property.size }}</td>
+
+                  {% if property.status %}
+                  <td style="color: rgb(5, 181, 5);">Unoccupied <i class="fa-solid fa-house"></i></td>
+                  {% else %}
+                  <td style="color: rgb(255, 197, 6);">Occupied <i class="fa-solid fa-house-flag"></i></td>
+                  {% endif %}
+
+                  {% if property.loan_availability %}
+                  <td style="color: rgb(5, 181, 5);">Available <i class="fa-solid fa-check"></i></td>
+                  {% else %}
+                  <td style="color: rgb(206, 7, 7);">Unavailable <i class="fa-solid fa-xmark"></i></td>
+                  {% endif %}
+
+                  {% if property.property_agent %}
+                    <td class="text-truncate" style="max-width: 150px;"><a href="{% url "view_agent" property.property_agent.id %}">{{ property.property_agent }}</a></td>
+                  {% else %}
+                    <td>None</td>
+                  {% endif %}
+                <td><a class='btn btn-secondary btn-sm mx-1' href="{% url "view_property" property.id %}">View</a> | <a class='btn btn-success btn-sm mx-1' href="{% url "edit_property" property.id %}">Edit</a> | <a class='btn btn-danger btn-sm mx-1' href="{% url "delete_property" property.id %}" onclick="return confirm('Are you sure u want to delete this client?')">Delete</a></td>
+              </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+{% endblock content %}

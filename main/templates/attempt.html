@@ -1,0 +1,143 @@
+{% extends "base.html" %}
+
+{% block title %}
+attempt
+{% endblock title %}
+
+{% block content %}
+
+
+    <div class="row">
+        <!-- First Column for Form -->
+        <div class="col-md-4 mx-4">
+            <div class="card my-4">
+                <div class="card-header">
+                    <h4 class='my-2'>Requirments</h4>
+                </div>
+                <div class="card-body">
+                    <b>Name</b> : {{ lead }}</br>
+                    <b>Loaction</b> : {{ lead.location }}</br>
+                    <b>Type</b> : {{ lead.property_Types }}</br>
+                    <b>Area</b> : {{ lead.min_area }} - {{ lead.max_area }}<br>
+                    <b>Budget</b> : {{ lead.min_budget }} - {{ lead.max_budget }}</br>
+                    {% if lead.status == "attempted" %}
+                        <b>Status</b> : Attempted <br> 
+                    {% else %}
+                        <b>Status</b> : Unattempted <br> 
+                    {% endif %}
+                {% if property %}
+
+                    <hr>
+
+
+                    {% if lead.location == property.location %}
+                    <b class='mx-1'>Loaction :</b>
+                        <div class="alert alert-success" role="alert">
+                            <i class="fa-solid fa-circle-check"></i> <b>{{ lead.location }} - {{ property.location }}</b>
+                        </div>
+                    {% else %}
+                    <b class='mx-1'>Loaction :</b>
+                        <div class="alert alert-warning" role="alert">
+                            <i class="fa-solid fa-triangle-exclamation"></i> <b>{{ lead.location }} - {{ property.location }}</b>
+                        </div>
+                    {% endif %}
+
+
+
+                    {% if lead.property_Types == property.property_types %}
+                    <b class='mx-1'>Type :</b>
+                        <div class="alert alert-success" role="alert">
+                            <i class="fa-solid fa-circle-check"></i> <b>{{ lead.property_Types  }} - {{ property.property_types }}</b>
+                        </div>
+                    {% else %}
+                    <b class='mx-1'>Type :</b>
+                        <div class="alert alert-warning my-1" role="alert">
+                            <i class="fa-solid fa-triangle-exclamation"></i> <b>{{ lead.property_Types  }} - {{ property.property_types }}</b>
+                        </div>
+                    {% endif %}
+
+
+                    <b class='mx-1'>Area :</b>
+                    <div class="alert alert-secondary" role="alert">
+                        <b>{{ lead.min_area  }} to {{ lead.max_area }} - {{ property.size }}</b>
+                    </div>
+                    
+
+                    
+                    <b class='mx-1'>Budget :</b>
+                    {% if value %}
+                        <div class="alert alert-success" role="alert">
+                            <i class="fa-solid fa-circle-check"></i> {{ lead.min_budget  }} to {{ lead.max_budget }} - {{ property.property_cost }}
+                        </div>
+                    {% else %}
+                        <div class="alert alert-warning" role="alert">
+                            <i class="fa-solid fa-triangle-exclamation"></i> {{ lead.min_budget  }} to {{ lead.max_budget }} - {{ property.property_cost }}
+                        </div>
+                    {% endif %}
+
+                    <form method='POST' action="{% url "owns" lead.id property.id %}">
+                    {% csrf_token %}
+                    <input class='btn btn-primary' type='submit'>
+
+                    </form>
+
+                    {% comment %} <a class='btn btn-secondary' method='POST' href={% url "owns" lead.id property.id %}>Sumbit</a> {% endcomment %}
+
+                {% endif %}
+
+
+
+                </div>
+                <div class="card-footer text-body-secondary">
+                    {{ lead.date|date:"Y-m-d" }}
+
+
+                </div>
+            </div>
+        </div>
+        <!-- Second Column for Displaying Data -->
+        <div class="col-md-7">
+            <div class='container my-3'>
+                <div class="card">
+                    <div class="card-header">
+                        <h3>Properties</h3>
+                    </div>
+                    <div class="card-body">
+                        <table class="table table-bordered table-hover">
+                            <thead>
+                                <tr>
+                                    <th scope="col">Property name</th>
+                                    <th scope="col">Location</th>
+                                    <th scope="col">Category</th>
+                                    <th scope="col">Price</th>
+                                    <th scope="col">Area</th>
+                                    <th scope="col">Loan availability</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for property in properties %}
+                                    <tr class="table-light" onclick="window.location='{% url "attempt." lead.id property.id  %}'" style="cursor: pointer;">
+                                        <td scope="row">{{ property }}</td>
+
+                                        <td class="text-truncate" style="max-width: 130px;">{{ property.location }}</td>
+                                        <td class="text-truncate" style="max-width: 120px;">{{ property.property_types }}</td>
+                                        <td class="text-truncate" style="max-width: 150px;">{{ property.property_cost }}</td>
+                                        <td class="text-truncate" style="max-width: 150px;">{{ property.size }}</td>                  
+                                        {% if property.loan_availability %}
+                                        <td style="color: rgb(5, 181, 5);">Available <i class="fa-solid fa-check"></i></td>
+                                        {% else %}
+                                        <td style="color: rgb(206, 7, 7);">Unavailable <i class="fa-solid fa-xmark"></i></td>
+                                        {% endif %}
+                                    </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+{% endblock content %}

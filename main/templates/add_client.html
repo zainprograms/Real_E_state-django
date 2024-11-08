@@ -1,0 +1,75 @@
+{% extends "base.html" %}
+
+{% block title %}Add client{% endblock title %}
+
+{% block content %}
+  <div class='container'>
+  </br>
+    <div class="card">
+
+      <div class="card-header">
+        <h3 class='my-3'> <i class="fa-solid fa-users"></i> Add Client</h3>
+      </div>
+
+      <div class="card-body">
+        <form method='POST' action={% url "add_client" %}>
+            {% csrf_token %}
+
+            <div class="row mb-3">
+                <div class="col-md-6">
+                    <label class="form-label">Name</label>
+                    {{ form.client_name }}
+                </div>
+                <div class="col-md-6">
+                    <label class="form-label">Contact</label>
+                    {{ form.client_contact }}
+                </div>
+            </div>
+
+            <div class="row mb-3">
+              <div class="col-md-6">
+                  <label class="form-label">Email</label>
+                  {{ form.client_mail }}
+              </div>
+              <div class="col-md-6">
+                  <label class="form-label">YYYY-MM-DD</label>
+                  {{ form.client_DOB }}
+              </div>
+          </div>
+
+          <div class="row mb-3">
+            <div class="col-md-6">
+                <label class="form-label">Address</label>
+                {{ form.client_address }}
+            </div>
+            <div class="col-md-6">
+                <label class="form-label">City</label>
+                {{ form.client_city }}
+            </div>
+          </div>
+
+          <div class="row mb-3">
+            <div class="col-md-6">
+                <label class="form-label">State</label>
+                {{ form.client_state }}
+            </div>
+            <div class="col-md-6">
+                <label class="form-label">Client PIN</label>
+                {{ form.client_pin }}
+            </div>
+          </div>
+      <div class="">
+        <label class="form-label">Occupation</label>
+        {{ form.occupation }}
+    </div>
+      </div>
+
+      <div class="card-footer text-body-secondary">
+          <input class='btn btn-secondary my-2' type='submit'>
+        </form>
+      </div>
+
+    </div>
+  </br></br>
+  </div>
+{% endblock content %}

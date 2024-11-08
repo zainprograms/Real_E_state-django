@@ -1,0 +1,168 @@
+{% extends "base.html" %}
+
+{% block title %}edit leads{% endblock title %}
+
+
+{% block content %}
+
+{% if form.errors %}
+        <ul>
+            {% for field, errors in form.errors.items %}
+                {% for error in errors %}
+                <div class="alert alert-danger alert-dismissible fade show my-2 mx-3" role="alert">
+                    {{ error }}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                {% endfor %}
+            {% endfor %}
+        </ul>
+
+{% endif %}
+
+<div class='container'>
+    <div class="row">
+        <!-- First Column for Form -->
+        <div class="col-md-6">
+            <div class="card my-4">
+                <div class="card-header">
+                    <h3 class='my-3'>Update leads</h3>
+                </div>
+                <div class="card-body">
+                    <form method='POST'>
+                        {% csrf_token %}
+                        <div class="mb-3">
+                            <label class="form-label">Select Client :</label>
+                            {{ form.client }}
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Required property in location :</label>
+                            {{ form.location }}
+                        </div>
+                        
+                  <div class="row">
+                    <div class="col-md-6">
+                      <div class="mb-3">
+                        <label class="form-label">Budget :</label>
+                        {{ form.min_budget }}
+                      </div>
+                    </div>
+                    <div class="col-md-6">
+                      <div class="mb-3 my-2">
+                        <label class="form-label"></label>
+                        {{ form.max_budget }}
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="row">
+                    <div class="col-md-6">
+                      <div class="mb-3">
+                        <label class="form-label">Area :</label>
+                        {{ form.min_area }}
+                      </div>
+                    </div>
+                    <div class="col-md-6">
+                      <div class="mb-3 my-2">
+                        <label class="form-label"></label>
+                        {{ form.max_area }}
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="mb-3">
+                    <label class="form-label">lead Status :</label>
+                    {{ form.status }}
+                  </div>
+
+                  <div class="mb-3">
+                    <label class="form-label">Set followup reminder :</label>
+                    {{ form.followUpDate }}
+                  </div>
+
+                        <div class="row">
+                            <div class="col-md-6">
+                                {% if form.property_Types.field.queryset %}
+                                <div class="mb-3 my-2">
+                                    <label class="form-label">Property required :</label>
+                                    {{ form.property_Types }}
+                                </div>
+                                {% else %}
+                                <div class='my-3'>
+                                    <a href="{% url "property_types" %}">Add property type</a>
+                                </div>
+                                {% endif %}
+                            </div>
+                            <div class="col-md-6">
+                                {% if form.Source.field.queryset %}
+                                <div class="mb-3 ">
+                                    <label class="form-label">Source :</label>
+                                    {{ form.Source }}
+                                </div>
+                                {% else %}
+                                <div class='my-3'>
+                                    <a href="{% url "add_Source" %}">Add Source</a>
+                                </div>
+                                {% endif %}
+                            </div>
+                        </div>
+                    
+                </div>
+                    <div class="card-footer text-body-secondary">
+                        <input class='btn btn-secondary my-2' type='submit'>
+                    </div>
+                    </form>
+            </div>
+        </div>
+        <!-- Second Column for Displaying Data -->
+        <div class="col-md-6">
+            <div class='container my-3'>
+                <div class="card">
+                    <div class="card-header">
+                        <h3>Remarks</h3>
+                    </div>
+                    <div class="card-body">
+                        <table class="table table-bordered table-hover">
+                            <tbody>
+                                {% for remark in remarks %}
+                                <tr class="table-light">
+                                    
+                                    <td style="max-width: 130px; overflow: hidden; text-overflow: ellipsis;" scope="row">
+                                        {{ remark.data }}
+                                    </td>
+                                    
+                                </tr>
+                                
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+            </br>
+
+                <div class="card">
+                    <div class="card-header">
+                        <h3>Add remarks</h3>
+                    </div>
+                    <div class="card-body">
+                        <form method='POST' action={% url "add_comments" lead.id %}>
+                            {% csrf_token %}
+
+                            <div class="mb-3">
+                                {{ add_remarks.data }}
+                            </div>
+                        
+                    </div>
+                    <div class="card-footer text-body-secondary">
+                        <input class='btn btn-secondary my-2' type='submit'>
+                    </div>
+                        </form>
+                </div>
+            </div>
+        </div>
+
+        
+        
+    </div>
+</div>
+{% endblock content %}

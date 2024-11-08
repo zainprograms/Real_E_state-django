@@ -1,0 +1,55 @@
+{% extends "base.html" %}
+
+{% block title %}Add property types{% endblock title %}
+
+{% block content %}
+<div class='container'>
+    <div class="row">
+        <!-- First Column for Form -->
+        <div class="col-md-6">
+            <div class="card my-4">
+                <div class="card-header">
+                    <h3 class='my-3'>Add property types</h3>
+                </div>
+                <div class="card-body">
+                    <form method='POST'>
+                        {% csrf_token %}
+                        {{ form.as_p}}
+                </div>
+                <div class="card-footer text-body-secondary">
+                    <input class='btn btn-secondary my-2' type='submit'>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <!-- Second Column for Displaying Data -->
+        <div class="col-md-6">
+            <div class='container my-3'>
+                <div class="card">
+                    <div class="card-header">
+                        <h3>Property types</h3>
+                    </div>
+                    <div class="card-body">
+                        <table class="table table-bordered table-hover">
+                            <thead>
+                                <tr>
+                                    <th scope="col">ID</th>
+                                    <th scope="col">Name</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for type in types %}
+                                <tr class="table-light">
+                                    <th scope="row">{{ type.id }}</th>
+                                    <td class="text-truncate" style="max-width: 150px;">{{ type.name }}</td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock content %}

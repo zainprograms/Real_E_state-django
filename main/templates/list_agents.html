@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+
+{% block title %}
+list agents
+{% endblock title %}
+
+{% block content %}
+<div class='container my-3'>
+  <div class="card">
+    <div class="card-header">
+      <h3>Agents</h3>
+    </div>
+    <div class="card-body">
+      <table class="table table-bordered table-hover">
+        <thead>
+          <tr>
+            <th scope="col">ID</th>
+            <th scope="col">Name</th>
+            <th scope="col">Phone</th>
+            <th scope="col">Email</th>
+            <th scope="col">Deals in</th>
+            <th scope="col">Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for agent in agents %}
+            <tr class="table-light">
+              <th scope="row">{{ agent.id }}</th>
+              <td class="text-truncate" style="max-width: 150px;">{{ agent.agent_name }}</td>
+              <td class="text-truncate" style="max-width: 150px;">{{ agent.agent_contact }}</td>
+              <td class="text-truncate" style="max-width: 170px;">{{ agent.agent_mail }}</td>
+              <td  class="text-truncate" style="max-width: 150px;">{{ agent.agent_deals_in }}</td>
+              <td><a class='btn btn-secondary btn-sm mx-1' href="{% url "view_agent" agent.id %}">View</a> | <a class='btn btn-success btn-sm mx-1' href="{% url "edit_agent" agent.id %}">Edit</a> | <a class='btn btn-danger btn-sm mx-1' href="{% url "delete_agent" agent.id %}" onclick="return confirm('Are you sure u want to delete this agent?')">Delete</a></td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+{% endblock content %}

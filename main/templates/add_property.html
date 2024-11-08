@@ -1,0 +1,112 @@
+{% extends "base.html" %}
+
+{% block title %}add property{% endblock title %}
+
+{% block content %}
+<div class='container'>
+
+{% if form.errors %}
+    <ul>
+        {% for field, errors in form.errors.items %}
+            {% for error in errors %}
+            <div class="alert alert-danger alert-dismissible fade show my-2 mx-3" role="alert">
+                {{ error }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            {% endfor %}
+        {% endfor %}
+    </ul>
+
+{% endif %}
+    </br>
+    <div class="card">
+        <div class="card-header">
+            <h3 class='my-3'><i class="fa-solid fa-landmark"></i> Add property</h3>
+        </div>
+
+        <div class="card-body">
+            <form method='POST' action={% url "add_property" %}>
+                {% csrf_token %}
+
+                <div class="row mb-3">
+                    <div class="col-md-6">
+                        <label class="form-label">Property title</label>
+                        {{ form.property_title }}
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label">Property location</label>
+                        {{ form.location }}
+                    </div>
+                </div>
+
+                <div class="row mb-3">
+                  {% if form.property_types.field.queryset %}
+                  <div class="col-md-6">
+                      <label class="form-label">Property type</label>
+                      {{ form.property_types }}
+                  </div>
+                  {% else %}
+                  <div class='col-md-6 my-3'>
+                    <label class="form-label"> Property type :  </label>
+                    <a href="{% url "property_types" %}">Add Property types</a>
+                  </div>
+                  {% endif %}
+
+                  <div class="col-md-6">
+                      <label class="form-label">Size</label>
+                      {{ form.size }}
+                  </div>
+                </div>
+
+                <div class="row mb-3">
+                  <div class="col-md-6">
+                      <label class="form-label">Property age</label>
+                      {{ form.property_age }}
+                  </div>
+                  <div class="col-md-6">
+                      <label class="form-label">Property cost</label>
+                      {{ form.property_cost }}
+                  </div>
+                </div>
+
+                <div class="row mb-3">
+                    <div class="col-md-6">
+                        <label class="form-label">Property agent</label>
+                        {{ form.property_agent }}
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label"> Loan availability :</label>
+                        {{ form.loan_availability }}
+                    </div>
+                </div>
+
+
+                  
+                  {% if form.amenities.field.queryset %}
+                  <div class="">
+                      <label class="form-label">Amenities</label>
+                      {{ form.amenities }}
+                  </div>
+                  {% else %}
+                  <div class="">
+                    <label class="form-label"> Amenities :  </label>
+                    <a href="{% url "amenities" %}">Add amenities</a>
+                  </div>
+                  {% endif %}
+
+                <div class="">
+                    <label class="form-label">Decscription</label>
+                    {{ form.property_description }}
+                </div>
+
+
+          </div>
+
+        <div class="card-footer text-body-secondary">
+            <input class='btn btn-secondary my-2' type='submit'>
+            </form>
+        </div>
+    </div>
+    </br></br>
+</div>
+{% endblock content %}

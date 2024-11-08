@@ -1,0 +1,55 @@
+{% extends "base.html" %}
+
+{% block title %}view property{% endblock title %}
+
+{% block content %}
+<div class='container my-5'>
+    <div class="card">
+      <h5 class="card-header"> Property Title : {{ property.property_title }}</h5>
+      <div class="card-body">
+        <b>Property Type :</b> {{ property.property_types }}</br>
+        <b>Property location :</b> {{ property.location }}</br>
+        <b>Size :</b> {{ property.size }}</br>
+        <b>Property Age :</b> {{ property.property_age }}</br>
+        {% if property.property_agent %}
+          <b>Property Agent :</b> <a href="{% url "view_agent" property.property_agent.id %}">{{ property.property_agent }}</a></br>
+        {% else %}
+          <b>Property Agent :</b> None </br>
+        {% endif %}
+        <b>Cost :</b> {{ property.property_cost }}</br>
+
+        {% if  property.status %}
+          <b>Current status : </b>Available</br>
+        {% else %}
+          <b>Current status : </b>Unavailable</br>
+        {% endif %}
+
+        {% if property.loan_availability %}
+          <b>loan Availability :</b> Avaibable </br>
+        {% else %}
+          <b>loan Availability :</b> Unavaibable </br>
+        {% endif %}
+        
+        {% if property.amenities.all %} 
+        <b>Amenities :</b>
+      <ul>
+        {% for amenity in property.amenities.all %}
+        <li>{{ amenity }}</li>
+        {% endfor %}
+      </ul>
+      {% endif %}
+
+
+        <b>Description :</b></br>
+        <div style="max-width: 13000px; overflow: hidden; text-overflow: ellipsis;">
+          {{ property.property_description }}
+        </div>
+
+      </div>
+      <div class="card-footer text-body-secondary">
+        <a class='btn btn-success btn-sm mx-1' href="{% url "edit_property" property.id %}">Edit</a>
+        <a class='btn btn-danger btn-sm mx-1' align='right' href="{% url "delete_property" property.id %}" onclick="return confirm('Are you sure u want to delete this client?')">Delete</a>
+      </div>
+    </div>
+</div>
+{% endblock content %}

@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+
+{% block title %}view client{% endblock title %}
+
+{% block content %}
+<div class='container my-5'>
+    <div class="card">
+      <h5 class="card-header"> Agent Name : {{ agent.agent_name }}</h5>
+      <div class="card-body">
+        <b>Contact :</b> {{ agent.agent_contact }}</br>
+        <b>Email :</b> {{ agent.agent_mail }}</br>
+        <b>DOB :</b> {{ agent.agent_DOB }}</br>
+        <b>Address :</b> {{ agent.agent_address }}</br>
+        <b>City :</b> {{ agent.agent_city }}</br>
+        <b>State :</b> {{ agent.agent_state }}</br>
+        <b>PIN :</b> {{ agent.agent_pin }}</br>
+        <b>PAN :</b> {{ agent.agent_PAN }}</br>
+        <b>Deals in :</b> {{ agent.agent_deals_in }}</br>
+      </div>
+      <div class="card-footer text-body-secondary">
+        <a class='btn btn-success btn-sm mx-1' href="{% url "edit_agent" agent.id %}">Edit</a>
+        <a class='btn btn-danger btn-sm mx-1' align='right' href="{% url "delete_agent" agent.id %}" onclick="return confirm('Are you sure u want to delete this agent?')">Delete</a>
+      </div>
+    </div>
+</div>
+{% endblock content %}

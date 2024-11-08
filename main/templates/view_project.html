@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+
+{% block title %}view project{% endblock title %}
+
+{% block content %}
+<div class='container my-5'>
+    <div class="card">
+      <h5 class="card-header">Project Name : {{ project.project_name }}</h5>
+      <div class="card-body">
+        <b>location :</b> {{ project.project_location }}</br>
+        <b>Area :</b> {{ project.project_area }}</br>
+        <b>Description :</b> 
+        <div style="max-width: 13000px; overflow: hidden; text-overflow: ellipsis;">
+          {{ project.project_description }}
+        </div>
+        {% if project.add_properties.all %}
+        <b>Properties :</b>
+        <ul>
+          {% for property in project.add_properties.all %}
+            <a href="{% url "view_property" property.id %}"><li>{{ property.property_title }}</li></a>
+          {% endfor %}
+        </ul>
+        {% else %}
+          None </br>
+        {% endif %}
+      </div>
+      <div class="card-footer text-body-secondary">
+        <a class='btn btn-success btn-sm mx-1' href="{% url "edit_project" project.id %}">Edit</a>
+        <a class='btn btn-danger btn-sm mx-1' align='right' href="{% url "delete_project" project.id %}" onclick="return confirm('Are you sure u want to delete this client?')">Delete</a>
+      </div>
+    </div>
+</div>
+{% endblock content %}

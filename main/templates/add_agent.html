@@ -1,0 +1,93 @@
+{% extends "base.html" %}
+
+{% block title %}
+  Add_agent
+{% endblock %}
+
+{% block content %}
+<div class='container'>
+</br>
+  <div class="card">
+
+    <div class="card-header">
+      <h3 class='my-3'> <i class="fa-solid fa-user-secret"></i> Add Agent </h3>
+    </div>
+
+    <div class="card-body">
+      <form method='POST' action={% url "add_agent" %}>
+        {% csrf_token %}
+  
+        <div class="row mb-3">
+          <div class="col-md-6">
+              <label class="form-label">Name</label>
+              {{ form.agent_name }}
+          </div>
+          <div class="col-md-6">
+              <label class="form-label">Contact</label>
+              {{ form.agent_contact }}
+          </div>
+      </div>
+
+      <div class="row mb-3">
+        <div class="col-md-6">
+            <label class="form-label">Email</label>
+            {{ form.agent_mail }}
+        </div>
+        <div class="col-md-6">
+            <label class="form-label">YYYY-MM-DD</label>
+            {{ form.agent_DOB }}
+        </div>
+    </div>
+
+    <div class="row mb-3">
+      <div class="col-md-6">
+          <label class="form-label">Address</label>
+          {{ form.agent_address }}
+      </div>
+      <div class="col-md-6">
+          <label class="form-label">City</label>
+          {{ form.agent_city }}
+      </div>
+    </div>
+
+    <div class="row mb-3">
+      <div class="col-md-6">
+          <label class="form-label">Deals in</label>
+          {{ form.agent_deals_in }}
+      </div>
+      <div class="col-md-6">
+          <label class="form-label">State</label>
+          {{ form.agent_state }}
+      </div>
+    </div>
+
+    <div class="row mb-3">
+      <div class="col-md-6">
+          <label class="form-label">Deals in</label>
+          {{ form.agent_deals_in }}
+      </div>
+      <div class="col-md-6">
+          <label class="form-label">PIN</label>
+          {{ form.agent_pin }}
+      </div>
+    </div>
+
+    <div class="row mb-3">
+      <div class="col-md-6">
+          <label class="form-label">PAN</label>
+          {{ form.agent_PAN }}
+      </div>
+    </div>
+
+    </div>
+
+    <div class="card-footer text-body-secondary">
+        <input class='btn btn-secondary my-2' type='submit'>
+      </form>
+    </div>
+
+  </div>
+</br></br>
+</div>
+
+{% endblock content %}

@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+
+{% block title %}list clients{% endblock title %}
+
+{% block content %}
+
+  <div class='container my-3'>
+    <div class="card">
+      <div class="card-header">
+        <h3>Clients</h3>
+      </div>
+      <div class="card-body">
+        <table class="table table-bordered table-hover">
+          <thead>
+            <tr>
+              <th scope="col">ID</th>
+              <th scope="col">Name</th>
+              <th scope="col">Phone</th>
+              <th scope="col">Email</th>
+              <th scope="col">Occupation</th>
+              <th scope="col">Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for client in clients %}
+              <tr class="table-light">
+                <th scope="row">{{ client.id }}</th>
+                <td class="text-truncate" style="max-width: 150px;">{{ client.client_name }}</td>
+                <td class="text-truncate" style="max-width: 150px;">{{ client.client_contact }}</td>
+                <td class="text-truncate" style="max-width: 170px;">{{ client.client_mail }}</td>
+                <td class="text-truncate" style="max-width: 120px;">{{ client.occupation }}</td>
+                <td><a class='btn btn-secondary btn-sm mx-1' href="{% url "view_client" client.id %}">View</a> | <a class='btn btn-success btn-sm mx-1' href="{% url "edit_client" client.id %}">Edit</a> | <a class='btn btn-danger btn-sm mx-1' href="{% url "delete_client" client.id %}" onclick="return confirm('Are you sure u want to delete this client?')">Delete</a></td>
+              </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+{% endblock content %}
